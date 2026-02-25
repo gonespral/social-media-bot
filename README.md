@@ -7,17 +7,17 @@
 > In some cases, ```numpy``` will fail to load the c-extensions when running on a Raspberry pi. To fix this, run
 > ```sudo apt-get install libatlas-base-dev```.
 
-First, set up the virtual environment. Make sure you are in the ```social-media``` directory:
+First, set up the virtual environment using `uv`. Make sure you are in the ```social-media-bot``` directory:
 
-```python3 -m venv venv```
+```uv venv```
 
-```source venv/bin/activate```
+```source .venv/bin/activate```
 
 > To deactivate the virtual environment, run ```deactivate```.
 
 Then, install the requirements for the project:
 
-```pip install -r requirements.txt```
+```uv pip install -r requirements.txt```
 
 ### 2. Set up the systemd service
 
@@ -37,3 +37,29 @@ of the ```src``` directory and ```main.py```, respectively. Then, copy the servi
 Finally, verify the service is running:
 
 ```sudo systemctl status social-media.service```
+
+## Architecture
+
+The main logic resides in the `src/` directory.
+
+### Scheduler (`src/scheduler.py`)
+The core orchestrator based on APScheduler. Its main actions are:
+1. Updating the local database by generating missing content.
+2. Loading authorized content into the scheduler to be posted at their scheduled times.
+
+### Generators (`src/generators.py`)
+Contains functions that build the content (e.g., `image_with_quote`, `random_thought`). You can configure them or add new ones by defining new methods that return the required attributes.
+
+### Content Objects (`src/content.py`)
+Defines data structures (like `TwitterContentObject`) that bundle a generation function, an authorization function, a post function, and a cron schedule into a single manageable unit.
+
+### Configuration (`src/config.yaml`)
+The control center where you define the active scheduled tasks. You configure each task by specifying the target generator, authorization and post functions, along with its cron schedule and API keys path.
+
+### Modules (`src/modules/`)
+Helper modules providing specific functionalities:
+- `discord_api.py`: Integrates with Discord, primarily used to request human authorization for generated content before posting.
+- `twitter_api.py` & `twitter_web/`: Handle posting and scraping on X/Twitter.
+- `openai_api.py` & `prompts.py`: Handle LLM requests and prompt templates.
+- `sqlite_db.py` & `vector_db/`: Manage data storage and Retrieval-Augmented Generation (RAG) capabilities.
+- `image_editor/`: Tools for manipulating and generating images for posts.
