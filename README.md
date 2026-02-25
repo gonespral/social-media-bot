@@ -1,6 +1,6 @@
 # Social Media Bot
 
-This project started as an experiment at the beginning of the generative AI hype cycle. The motivation was to play around with up-and-coming generative AI technologies and explore how they could be used to fully automate social media for brands. Originally designed to run 24/7 on a Raspberry Pi, the bot operates autonomously but includes a human-in-the-loop mechanism, proactively requesting authorization for generated posts via Discord before publishing them.
+The motivation for this project was to play around with up-and-coming generative AI technologies and explore how they could be used to fully automate social media for brands. Originally designed to run 24/7 on a Raspberry Pi, the bot operates autonomously but includes a human-in-the-loop mechanism, proactively requesting authorization for generated posts via Discord before publishing them.
 
 **Main Features:**
 - **Automated Content Generation**: Utilizes LLMs and custom generators to create scheduled, varied content like philosophical quotes, thoughts, and images.
