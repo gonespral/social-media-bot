@@ -1,5 +1,15 @@
 # Social Media Bot
 
+This project started as an experiment at the beginning of the generative AI hype cycle. The motivation was to play around with up-and-coming generative AI technologies and explore how they could be used to fully automate social media for brands. Originally designed to run 24/7 on a Raspberry Pi, the bot operates autonomously but includes a human-in-the-loop mechanism, proactively requesting authorization for generated posts via Discord before publishing them.
+
+**Main Features:**
+- **Automated Content Generation**: Utilizes LLMs and custom generators to create scheduled, varied content like philosophical quotes, thoughts, and images.
+- **Human-in-the-loop Approval**: Automatically integrates with Discord to let users review, approve, or reject generated content before it goes live.
+- **Retrieval-Augmented Generation (RAG)**: Employs a local database and vector storage to ground generated texts in specific source materials.
+- **Scheduling**: Relies on `APScheduler` to configure dynamic cron schedules and manage content queues effectively.
+- **Multi-Platform Integration**: Includes modules for posting and scraping. Notably, the X/Twitter component employs browser automation to scrape pages as a workaround for the constraints of the paid API.
+- **Social Graph Optimization (Experimental)**: Explored building out a social graph of connections to better understand user relationships and generate highly contextualized dynamic interactions with followers.
+
 ## Installation
 
 ### 1. Install Dependencies
